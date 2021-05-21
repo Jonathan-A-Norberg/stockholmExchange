@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.network.ext.collectFlow
+import com.example.network.utils.getErrorMessageRes
 import com.example.stockholmcolorexchange.R
 import com.example.stockholmcolorexchange.databinding.FragmentColorPickerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,7 @@ class ColorPickerFragment : Fragment(R.layout.fragment_color_picker) {
     private fun ColorPickerState.handleState() {
         binding.progressBar.isVisible = loading
         if (error != null) {
+            binding.errorText.text = requireContext().getString(error.getErrorMessageRes())
             binding.errorText.isVisible = true
             binding.tryAgain.isVisible = true
             binding.pickerRecyclerView.isVisible = false

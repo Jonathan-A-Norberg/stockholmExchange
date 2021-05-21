@@ -1,5 +1,7 @@
 package com.example.network.utils
 
+import com.example.network.R
+
 
 sealed class Error {
     sealed class Api : Error() {
@@ -21,3 +23,16 @@ sealed class Error {
     object DeviceOffline : Error()
 }
 
+fun Error.getErrorMessageRes() = when (this) {
+    Error.Api.FailedToParse -> R.string.error_failed_to_parse
+    Error.Api.NetworkTimeout -> R.string.error_network_time_out
+    Error.Api.NetworkInterrupted -> R.string.error_network_interrupted
+    Error.Api.Unauthorized -> R.string.error_unauthorized
+    Error.Api.NotFound -> R.string.error_resource_not_found
+    Error.Api.BadRequest -> R.string.error_could_not_connect_bad_request
+    Error.Api.ServerError -> R.string.error_could_not_connect_bad_server_error
+    Error.Api.Generic -> R.string.error_general
+    is Error.Api.HttpError -> R.string.error_could_not_connect
+    Error.Db.NotFound -> R.string.error_database
+    Error.DeviceOffline -> R.string.error_offline
+}
