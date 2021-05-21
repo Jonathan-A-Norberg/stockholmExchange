@@ -34,11 +34,13 @@ class ColorPickerViewModel @Inject constructor(
             when (val res = colorExchangeRepository.getColorPickerList()) {
                 is Resource.Success -> _state.emit(
                     state.value.copy(
+                        loading = false,
                         colorPickerList = res.data
                     )
                 )
                 is Resource.Error -> _state.emit(
                     state.value.copy(
+                        loading = false,
                         error = res.error
                     )
                 )
@@ -49,9 +51,20 @@ class ColorPickerViewModel @Inject constructor(
     fun onColorPickerClicked(colorPickerData: ColorPickerData) {
 
     }
+
+    fun tryAgainClicked() {
+        _state.tryEmit(
+            state.value.copy(
+                loading = true,
+                error = null,
+            )
+        )
+        getColorPickerDataList()
+    }
 }
 
 data class ColorPickerState(
     val colorPickerList: List<ColorPickerData> = emptyList(),
-    val error: Error? = null
+    val error: Error? = null,
+    val loading: Boolean = true
 )
