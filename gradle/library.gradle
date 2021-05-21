@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.file("gradle/kotlin-android.gradle")
+
+android {
+    compileSdkVersion rootProject.ext.compileSdk
+
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCodeNumber
+        versionName rootProject.ext.versionNameString
+
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

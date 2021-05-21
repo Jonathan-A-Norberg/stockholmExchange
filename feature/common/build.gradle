@@ -1,0 +1,42 @@
+apply from: rootProject.file("gradle/library.gradle")
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'dagger.hilt.android.plugin'
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+android {
+    buildFeatures {
+        viewBinding true
+    }
+
+}
+
+dependencies {
+
+    api libraries.kotlin_stdlib
+    api libraries.kotlin_coroutines
+    api libraries.kotlin_coroutines_android
+    api libraries.timber
+
+    api libraries.androidx_core
+    api libraries.androidx_fragment
+
+    api libraries.google_material
+    api libraries.androidx_constraintlayout
+
+    api libraries.daggerHiltCommon
+    api libraries.daggerHiltAndroid
+    api libraries.daggerHiltCompiler
+    api libraries.daggerHiltAndroidXCompiler
+
+    api libraries.androidx_activity
+    api libraries.androidx_appcompat
+    api libraries.androidx_cardview
+    api libraries.androidx_constraintlayout
+    api libraries.androidx_fragment
+    implementation libraries.androidx_core
+
+
+}

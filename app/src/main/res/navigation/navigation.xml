@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/startFragment">
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.stockholmcolorexchange.ui.colorPicker.ColorPickerFragment"
+        tools:layout="@layout/fragment_color_picker">
+     <!--   <action
+            android:id="@+id/action_welcomeFragment_to_termsOfUseFragment"
+            app:destination="@id/termsOfUseFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />-->
+    </fragment>
+</navigation>

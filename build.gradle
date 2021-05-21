@@ -1,0 +1,110 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        kotlin_version = '1.4.10'
+    }
+
+    ext.kotlinVersion = '1.4.10'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.31.2-alpha"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+
+
+
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+ext {
+    buildTools = '29.0.3'
+    minSdk = 28
+    targetSdk = 29
+    compileSdk = 29
+
+    versionCodeNumber = 1
+    versionNameString = "0.0.1"
+
+    kotlinSerializationVersion = "1.0.0"
+    retrofitSerialization = "0.8.0"
+    coroutinesVersion = "1.4.2"
+    okhttpVersion = "4.4.0"
+    retrofitVersion = "2.6.1"
+    googlePlayServicesVersion = "20.0.0"
+    hiltCore = "2.35"
+    hiltVersion = "1.0.0-alpha03"
+
+    libraries = [
+            androidx_activity            : 'androidx.activity:activity-ktx:1.1.0',
+            androidx_appcompat           : 'androidx.appcompat:appcompat:1.1.0',
+            androidx_cardview            : 'androidx.cardview:cardview:1.0.0',
+            androidx_constraintlayout    : 'androidx.constraintlayout:constraintlayout:1.1.3',
+            androidx_fragment            : 'androidx.fragment:fragment-ktx:1.3.0-alpha04',
+            androidx_core                : "androidx.core:core-ktx:1.5.0-alpha05",
+
+            androidx_viewmodel           : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0',
+            androidx_viewpager2          : 'androidx.viewpager2:viewpager2:1.0.0',
+            androidx_navigation_fragment : 'androidx.navigation:navigation-fragment-ktx:2.3.0-alpha03',
+            androidx_navigation_ui       : 'androidx.navigation:navigation-ui-ktx:2.3.0-alpha03',
+            androidx_runtime             : 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0',
+            androidx_livedata            : 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0',
+            androidx_crypto              : 'androidx.security:security-crypto:1.0.0-alpha02',
+
+            kotlin_stdlib                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            kotlin_coroutines            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            kotlin_coroutines_android    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
+            kotlin_serialization         : "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinSerializationVersion",
+            retrofit_kotlin_serialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$retrofitSerialization",
+
+            daggerHiltCommon             : "androidx.hilt:hilt-common:$hiltVersion",
+            daggerHiltAndroid            : "com.google.dagger:hilt-android:$hiltCore",
+            daggerHiltCompiler           : "com.google.dagger:hilt-compiler:$hiltCore",
+            daggerHiltAndroidXCompiler   : "androidx.hilt:hilt-compiler:$hiltVersion",
+            daggerHiltAndroidCompiler   : "com.google.dagger:hilt-android-compiler:$hiltVersion",
+
+            google_material              : 'com.google.android.material:material:1.3.0-alpha03',
+            firebase_ktx                 : 'com.google.firebase:firebase-common-ktx',
+            firebase                     : 'com.google.firebase:firebase-analytics-ktx:17.5.0',
+            firebase_core                : "com.google.firebase:firebase-core:17.4.0",
+            firebase_messaging           : 'com.google.firebase:firebase-messaging:20.1.6',
+            firebase_analytics           : 'com.google.firebase:firebase-analytics:17.4.0',
+            firebase_crashlytics         : 'com.google.firebase:firebase-crashlytics:17.0.0',
+
+            junit                        : 'junit:junit:4.12',
+            kotlin_test                  : "org.jetbrains.kotlin:kotlin-test:$kotlinVersion",
+            kotlin_test_junit            : "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion",
+
+            okhttp                       : "com.squareup.okhttp3:okhttp:$okhttpVersion",
+            okhttp_logging_interceptor   : "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
+
+            retrofit                     : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofit_mock                : "com.squareup.retrofit2:retrofit-mock:$retrofitVersion",
+            retrofit_converter_scalars   : "com.squareup.retrofit2:converter-scalars:$retrofitVersion",
+            moshi                        : '1.11.0',
+
+            timber                       : 'com.jakewharton.timber:timber:4.7.1',
+            lifecycle_extensions         : 'androidx.lifecycle:lifecycle-extensions:2.0.0',
+            support_v4                   : 'com.android.support:support-v4:23.4.0',
+
+            google_play_core             : 'com.google.android.play:core:1.10.0',
+            google_play_core_ktx         : 'com.google.android.play:core-ktx:1.8.1',
+            database_sqllite_helper      : 'com.readystatesoftware.sqliteasset:sqliteassethelper:+',
+    ]
+}

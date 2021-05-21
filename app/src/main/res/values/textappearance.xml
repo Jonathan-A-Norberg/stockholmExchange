@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.SCE.Title" parent="">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Title.2" parent="TextAppearance.SCE.Title">
+        <item name="android:textSize">@dimen/text_title_2</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Body" parent="">
+        <item name="android:fontFamily">@font/semi_bold</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Body.White" parent="TextAppearance.SCE.Body.Bold">
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Body.Bold" parent="TextAppearance.SCE.Body">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="TextAppearance.SCE.Body.Black" parent="TextAppearance.SCE.Body">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Body.Black.Bold" parent="TextAppearance.SCE.Body.Black">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Body.Blue" parent="TextAppearance.SCE.Body">
+        <item name="android:textColor">@color/accentColor</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Subtitle" parent="TextAppearance.SCE.Body">
+        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="TextAppearance.SCE.Subtitle.Blue">
+        <item name="android:textColor">@color/accentColor</item>
+    </style>
+</resources>

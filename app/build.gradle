@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+repositories {
+    maven { url 'https://jitpack.io' }
+
+}
+
+
+android {
+    compileSdkVersion 30
+    buildFeatures {
+        viewBinding true
+    }
+    buildToolsVersion '30.0.3'
+    defaultConfig {
+        applicationId "com.example.stockholmcolorexchange"
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCodeNumber
+        versionName rootProject.ext.versionNameString
+
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+        exclude 'META-INF/gradle/incremental.annotation.processors'
+
+        exclude("META-INF/*.kotlin_module")
+    }
+
+}
+repositories {
+    maven { url 'https://oss.jfrog.org/libs-snapshot' }
+    maven { url 'https://jitpack.io' }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+    mavenCentral()
+    jcenter()
+
+}
+
+dependencies {
+    implementation project(":feature:common")
+    implementation project(":feature:repository")
+    implementation project(":feature:network")
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt libraries.daggerHiltCompiler
+    kapt libraries.daggerHiltAndroidXCompiler
+    kapt libraries.daggerHiltAndroid
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+}
