@@ -1,6 +1,5 @@
 package com.example.stockholmcolorexchange.ui.colorPickerList
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.network.utils.Error
@@ -13,14 +12,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 @HiltViewModel
 class ColorPickerViewModel @Inject constructor(
-    private val context: Context,
     private val colorExchangeRepository: ColorExchangeRepository
 ) : ViewModel() {
 
@@ -28,7 +23,6 @@ class ColorPickerViewModel @Inject constructor(
     val state: StateFlow<ColorPickerState> = _state
 
     init {
-        Timber.e("getColor")
         getColorPickerDataList()
     }
 
@@ -36,17 +30,23 @@ class ColorPickerViewModel @Inject constructor(
         viewModelScope.launch {
             when (val res = colorExchangeRepository.getColorPickerList()) {
                 is Resource.Success -> {
-                    val rgbValuePair = res.data.map { Pair(it.colorHexName, getRGBValue(it.colorHexName)) }
+                    val rgbValuePair =
+                        res.data.map { Pair(it.colorHexName, getRGBValue(it.colorHexName)) }
 
                     _state.emit(
                         state.value.copy(
                             loading = false,
                             colorPickerList = res.data.map { colorPickerData ->
-                                val allOtherRGBs = rgbValuePair.filterNot { it.first == colorPickerData.colorHexName }.map { it.second }
+                                val allOtherRGBs =
+                                    rgbValuePair.filterNot { it.first == colorPickerData.colorHexName }
+                                        .map { it.second }
                                 colorPickerData.copy(
-                                    tradesToday = calcRGBDistance(rgbValuePair.first { it.first == colorPickerData.colorHexName }.second, allOtherRGBs).toInt()
+                                    tradePrice = calcRGBDistance(
+                                        rgbValuePair.first { it.first == colorPickerData.colorHexName }.second,
+                                        allOtherRGBs
+                                    ).toInt()
                                 )
-                            }.sortedBy { it.tradesToday }
+                            }.sortedBy { it.tradePrice }
                         )
                     )
                 }

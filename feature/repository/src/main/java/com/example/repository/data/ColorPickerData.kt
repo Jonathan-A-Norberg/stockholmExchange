@@ -9,6 +9,6 @@ data class ColorPickerData(
     val color: Int,
     val colorHexName: String,
     val numTrades: Int,
-    val tradesToday: Int = 0,
+    val tradePrice: Int = 0,
     val risk: Int
 ) : Parcelable

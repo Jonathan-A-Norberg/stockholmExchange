@@ -41,23 +41,10 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude 'META-INF/proguard/androidx-annotations.pro'
         exclude 'META-INF/gradle/incremental.annotation.processors'
-
-        exclude("META-INF/*.kotlin_module")
     }
 }
 repositories {
-    maven { url 'https://oss.jfrog.org/libs-snapshot' }
-    maven { url 'https://jitpack.io' }
     maven { url "https://kotlin.bintray.com/kotlinx" }
     mavenCentral()
     jcenter()
@@ -68,11 +55,9 @@ dependencies {
     implementation project(":feature:common")
     implementation project(":feature:repository")
     implementation project(":feature:network")
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13.2'
+    implementation libraries.navigation_ktx
+    implementation libraries.navigation_ui
+    testImplementation libraries.junit
     kapt libraries.daggerHiltCompiler
     kapt libraries.daggerHiltAndroidXCompiler
     kapt libraries.daggerHiltAndroid

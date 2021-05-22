@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.network.ext.collectFlow
+import com.example.repository.data.ColorPickerData
 import com.example.stockholmcolorexchange.R
 import com.example.stockholmcolorexchange.databinding.FragmentColorDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,30 +46,36 @@ class ColorPickerDetailsFragment : Fragment(R.layout.fragment_color_details) {
         colorPickerData?.let {
             binding.name.text = colorPickerData.name
             binding.hex.text = colorPickerData.colorHexName
-            binding.tradeValue.text = getString(R.string.index, colorPickerData.tradesToday)
-            var animationTime = 0f
-
-            lifecycleScope.launch {
-
-                val max = (colorPickerData.risk.toFloat() / MAX_RISK.toFloat()) * 100
-                val halfMark = max / 2
-
-                while (animationTime <= max) {
-                    delay(2L)
-                    binding.progressBar.progress = animationTime.toInt()
-                    val float = animationTime / max
-                    animationTime += if (animationTime <= halfMark) {
-                        float + 0.1f
-                    } else {
-                        abs(1 - float)+ 0.1f
-                    }
-                }
-                binding.progressBar.progress = max.toInt()
-            }
-            binding.progressText.text = requireContext().getString(R.string.risk, colorPickerData.risk, MAX_RISK)
-            binding.tradesToday.text = requireContext().getString(R.string.trades_today, colorPickerData.tradesToday)
+            binding.tradeValue.text = getString(R.string.index, colorPickerData.tradePrice)
+            animateProgressBar(colorPickerData)
+            binding.progressText.text =
+                requireContext().getString(R.string.risk, colorPickerData.risk, MAX_RISK)
+            binding.tradesToday.text =
+                requireContext().getString(R.string.trades_today, colorPickerData.numTrades)
             binding.cardDetailsView.setCardBackgroundColor(colorPickerData.color)
 
+        }
+    }
+
+    private fun animateProgressBar(colorPickerData: ColorPickerData) {
+        var animationTime = 0f
+
+        lifecycleScope.launch {
+
+            val max = (colorPickerData.risk.toFloat() / MAX_RISK.toFloat()) * 100
+            val halfMark = max / 2
+
+            while (animationTime <= max) {
+                delay(2L)
+                binding.progressBar.progress = animationTime.toInt()
+                val float = animationTime / max
+                animationTime += if (animationTime <= halfMark) {
+                    float + 0.1f
+                } else {
+                    abs(1 - float) + 0.1f
+                }
+            }
+            binding.progressBar.progress = max.toInt()
         }
     }
 

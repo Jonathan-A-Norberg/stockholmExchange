@@ -2,50 +2,51 @@ package com.example.stockholmcolorexchange.ui.colorPickerList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.repository.data.ColorPickerData
 import com.example.stockholmcolorexchange.R
+import com.example.stockholmcolorexchange.databinding.PickerViewBinding
 
+class ColorPickerListAdapter(private val onClicked: (ColorPickerData) -> Unit) :
+    ListAdapter<ColorPickerData, ColorPickerListAdapter.ViewHolder>(Companion) {
 
-class ColorPickerAdapter(
-    private val onClicked: (ColorPickerData) -> Unit,
-) : RecyclerView.Adapter<ColorPickerAdapter.ColorPickerClassViewHolder>() {
+    class ViewHolder(val binding: PickerViewBinding) : RecyclerView.ViewHolder(binding.root)
 
-    var list: List<ColorPickerData> = emptyList()
+    companion object : DiffUtil.ItemCallback<ColorPickerData>() {
+        override fun areItemsTheSame(oldItem: ColorPickerData, newItem: ColorPickerData): Boolean =
+            oldItem === newItem
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorPickerClassViewHolder {
-        return ColorPickerClassViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.picker_view, parent, false) as CardView)
+        override fun areContentsTheSame(
+            oldItem: ColorPickerData,
+            newItem: ColorPickerData
+        ): Boolean = oldItem.colorHexName == newItem.colorHexName
     }
 
-    override fun onBindViewHolder(holder: ColorPickerClassViewHolder, position: Int) {
-        val data = list[position]
-        val cardView = (holder.itemView as CardView)
-        val pickerName = cardView.findViewById<TextView>(R.id.picker_name)
-        val index = cardView.findViewById<TextView>(R.id.index)
-        pickerName.text = data.name
-        index.text = data.tradesToday.toString()
-        index.text = holder.itemView.context.getString(R.string.index, data.tradesToday)
-        cardView.setCardBackgroundColor(data.color)
-        cardView.setOnClickListener {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = PickerViewBinding.inflate(
+            layoutInflater,
+            parent,
+            false
+        )
+
+        return ViewHolder(binding)
+    }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val data = getItem(position)
+        holder.binding.pickerName.text = data.name
+        holder.binding.index.text = data.tradePrice.toString()
+        holder.binding.index.text =
+            holder.itemView.context.getString(R.string.index, data.tradePrice)
+        holder.binding.root.setCardBackgroundColor(data.color)
+        holder.binding.root.setOnClickListener {
             onClicked(data.copy())
         }
+
     }
-
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    fun setItems(list: List<ColorPickerData>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
-
-    inner class ColorPickerClassViewHolder(itemView: CardView) : RecyclerView.ViewHolder(itemView)
-
-
-
 }
 

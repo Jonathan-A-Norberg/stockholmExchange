@@ -1,6 +1,5 @@
 package com.example.stockholmcolorexchange.ui.colorPickerList.di
 
-import android.content.Context
 import com.example.repository.ColorExchangeRepository
 import com.example.stockholmcolorexchange.ui.colorPickerList.ColorPickerViewModel
 import dagger.Module
@@ -15,7 +14,7 @@ object ColorPickerModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun provideColorPickerViewModel(context: Context, colorExchangeRepository: ColorExchangeRepository): ColorPickerViewModel {
-        return ColorPickerViewModel(context, colorExchangeRepository)
+    fun provideColorPickerViewModel(colorExchangeRepository: ColorExchangeRepository): ColorPickerViewModel {
+        return ColorPickerViewModel(colorExchangeRepository)
     }
 }

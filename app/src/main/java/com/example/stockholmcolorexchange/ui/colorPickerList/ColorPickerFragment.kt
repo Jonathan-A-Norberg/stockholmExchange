@@ -18,13 +18,13 @@ class ColorPickerFragment : Fragment(R.layout.fragment_color_picker) {
     private lateinit var binding: FragmentColorPickerBinding
     private val viewModel: ColorPickerViewModel by viewModels()
 
-    private lateinit var adapter: ColorPickerAdapter
+    private lateinit var adapter: ColorPickerListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentColorPickerBinding.bind(view)
 
-        adapter = ColorPickerAdapter {
+        adapter = ColorPickerListAdapter {
             if (findNavController().currentDestination?.id == R.id.colorListFragment) {
 
                 val directions = ColorPickerFragmentDirections.actionColorListToColorDetails(
@@ -57,8 +57,7 @@ class ColorPickerFragment : Fragment(R.layout.fragment_color_picker) {
             binding.tryAgain.isVisible = false
             binding.pickerRecyclerView.isVisible = true
         }
-        adapter.setItems(colorPickerList)
-
+        adapter.submitList(colorPickerList)
 
     }
 
