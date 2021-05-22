@@ -1,10 +1,11 @@
-package com.example.stockholmcolorexchange.ui.colorPicker
+package com.example.stockholmcolorexchange.ui.colorPickerList
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.network.ext.collectFlow
 import com.example.network.utils.getErrorMessageRes
 import com.example.stockholmcolorexchange.R
@@ -25,6 +26,15 @@ class ColorPickerFragment : Fragment(R.layout.fragment_color_picker) {
 
         adapter = ColorPickerAdapter {
             viewModel.onColorPickerClicked(it)
+            if (findNavController().currentDestination?.id == R.id.colorListFragment) {
+
+
+                /*ColorPickerDes()*/
+                val directions = ColorPickerFragmentDirections.actionColorListToColorDetails(
+                    it
+                )
+                findNavController().navigate(directions)
+            }
         }
 
         binding.pickerRecyclerView.adapter = adapter

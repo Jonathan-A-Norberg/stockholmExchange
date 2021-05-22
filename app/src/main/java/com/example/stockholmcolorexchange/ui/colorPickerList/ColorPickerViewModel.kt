@@ -1,7 +1,6 @@
-package com.example.stockholmcolorexchange.ui.colorPicker
+package com.example.stockholmcolorexchange.ui.colorPickerList
 
 import android.content.Context
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.network.utils.Error

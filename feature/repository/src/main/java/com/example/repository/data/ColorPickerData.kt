@@ -1,11 +1,13 @@
 package com.example.repository.data
 
-import android.graphics.Color
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ColorPickerData(
     val name: String,
     val color: Int,
-    val colorName: String,
+    val colorHexName: String,
     val numTrades: Int,
     val risk: Int
-)
+) : Parcelable

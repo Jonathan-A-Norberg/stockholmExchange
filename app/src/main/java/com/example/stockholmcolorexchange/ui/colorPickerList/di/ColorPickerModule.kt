@@ -1,8 +1,8 @@
-package com.example.stockholmcolorexchange.ui.colorPicker.di
+package com.example.stockholmcolorexchange.ui.colorPickerList.di
 
 import android.content.Context
 import com.example.repository.ColorExchangeRepository
-import com.example.stockholmcolorexchange.ui.colorPicker.ColorPickerViewModel
+import com.example.stockholmcolorexchange.ui.colorPickerList.ColorPickerViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

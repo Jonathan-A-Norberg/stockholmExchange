@@ -1,6 +1,5 @@
 package com.example.repository
 
-import android.content.Context
 import com.example.network.ColorExchangeApiService
 import com.example.network.utils.Resource
 import com.example.repository.data.ColorPickerData
@@ -13,7 +12,7 @@ class ColorExchangeRepository @Inject constructor(
     suspend fun getColorPickerList(): Resource<List<ColorPickerData>> {
         return when (val res = apiService.getColorPickerList()) {
             is Resource.Error -> Resource.Error(res.error)
-            is Resource.Success -> Resource.Success(res.data.map{it.toColorPickerData()}.sortedBy { it.colorName })
+            is Resource.Success -> Resource.Success(res.data.map{it.toColorPickerData()}.sortedBy { it.colorHexName })
         }
     }
 }

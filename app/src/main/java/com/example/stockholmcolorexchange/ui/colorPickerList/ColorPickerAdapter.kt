@@ -1,10 +1,9 @@
-package com.example.stockholmcolorexchange.ui.colorPicker
+package com.example.stockholmcolorexchange.ui.colorPickerList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.repository.data.ColorPickerData
 import com.example.stockholmcolorexchange.R
@@ -25,7 +24,7 @@ class ColorPickerAdapter(
         val cardView = (holder.itemView as CardView)
         val pickerText = cardView.findViewById<TextView>(R.id.picker_hex_text)
         val pickerName = cardView.findViewById<TextView>(R.id.picker_name)
-        pickerText.text = data.colorName
+        pickerText.text = data.colorHexName
         pickerName.text = data.name
         cardView.setCardBackgroundColor(data.color)
         cardView.setOnClickListener {

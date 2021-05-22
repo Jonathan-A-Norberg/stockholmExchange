@@ -9,7 +9,7 @@ fun RemoteColorPickerData.toColorPickerData(): ColorPickerData {
     return ColorPickerData(
         name = name,
         color = Color.parseColor(color),
-        colorName = color,
+        colorHexName = color,
         numTrades = numTrades.toInt(),
         risk = risk.toInt()
 

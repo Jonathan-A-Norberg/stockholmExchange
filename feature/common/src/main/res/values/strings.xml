@@ -11,4 +11,6 @@
     <string name="error_could_not_connect">Could not Connect</string>
     <string name="error_database">Could not find resource in database.</string>
     <string name="error_offline">Device Offline</string>
+
+    <string name="risk">Risk %d / %d</string>
 </resources>

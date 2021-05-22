@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/picker_hex_text"
-        style="@style/TextAppearance.SCE.Subtitle"
+        style="@style/TextAppearance.SCE.Body"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,12 +25,22 @@
 
     <TextView
         android:id="@+id/picker_name"
+        style="@style/TextAppearance.SCE.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="16dp"
+        app:layout_constraintStart_toEndOf="@id/picker_hex_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/index"
         style="@style/TextAppearance.SCE.Subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/picker_hex_text"
         app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
