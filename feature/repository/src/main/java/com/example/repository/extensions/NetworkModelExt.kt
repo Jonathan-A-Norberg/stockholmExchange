@@ -3,6 +3,7 @@ package com.example.repository.extensions
 import android.graphics.Color
 import com.example.network.data.RemoteColorPickerData
 import com.example.repository.data.ColorPickerData
+import timber.log.Timber
 
 
 fun RemoteColorPickerData.toColorPickerData(): ColorPickerData {
@@ -12,6 +13,7 @@ fun RemoteColorPickerData.toColorPickerData(): ColorPickerData {
         colorHexName = color,
         numTrades = numTrades.toInt(),
         risk = risk.toInt()
-
     )
 }
+
+

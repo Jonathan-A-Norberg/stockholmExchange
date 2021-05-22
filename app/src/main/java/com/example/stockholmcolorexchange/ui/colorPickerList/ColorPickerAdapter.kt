@@ -22,10 +22,11 @@ class ColorPickerAdapter(
     override fun onBindViewHolder(holder: ColorPickerClassViewHolder, position: Int) {
         val data = list[position]
         val cardView = (holder.itemView as CardView)
-        val pickerText = cardView.findViewById<TextView>(R.id.picker_hex_text)
         val pickerName = cardView.findViewById<TextView>(R.id.picker_name)
-        pickerText.text = data.colorHexName
+        val index = cardView.findViewById<TextView>(R.id.index)
         pickerName.text = data.name
+        index.text = data.tradesToday.toString()
+        index.text = holder.itemView.context.getString(R.string.index, data.tradesToday)
         cardView.setCardBackgroundColor(data.color)
         cardView.setOnClickListener {
             onClicked(data.copy())

@@ -8,7 +8,7 @@ import retrofit2.create
 import retrofit2.http.GET
 
 
-interface SecoApi {
+interface SCEApi {
 
     @GET("list.json")
     suspend fun getColorPickerList(): RemoteColorPickerHeaderData
@@ -17,7 +17,7 @@ interface SecoApi {
 
 class ColorExchangeApiService(retrofit: Retrofit) {
 
-    private val api: SecoApi = retrofit.create()
+    private val api: SCEApi = retrofit.create()
 
     suspend fun getColorPickerList(): Resource<List<RemoteColorPickerData>> {
         return wrapApiCallToResource {

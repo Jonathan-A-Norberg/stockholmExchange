@@ -25,11 +25,8 @@ class ColorPickerFragment : Fragment(R.layout.fragment_color_picker) {
         binding = FragmentColorPickerBinding.bind(view)
 
         adapter = ColorPickerAdapter {
-            viewModel.onColorPickerClicked(it)
             if (findNavController().currentDestination?.id == R.id.colorListFragment) {
 
-
-                /*ColorPickerDes()*/
                 val directions = ColorPickerFragmentDirections.actionColorListToColorDetails(
                     it
                 )

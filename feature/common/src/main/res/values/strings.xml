@@ -13,4 +13,7 @@
     <string name="error_offline">Device Offline</string>
 
     <string name="risk">Risk %d / %d</string>
+    <string name="trades_today">Number of trades: %d</string>
+    <string name="index">Index: %d</string>
+    <string name="try_again">Try again</string>
 </resources>

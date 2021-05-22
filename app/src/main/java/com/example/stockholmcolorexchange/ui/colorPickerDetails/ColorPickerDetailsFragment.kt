@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.network.ext.collectFlow
 import com.example.stockholmcolorexchange.R
 import com.example.stockholmcolorexchange.databinding.FragmentColorDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 const val MAX_RISK = 5
 
@@ -41,8 +45,27 @@ class ColorPickerDetailsFragment : Fragment(R.layout.fragment_color_details) {
         colorPickerData?.let {
             binding.name.text = colorPickerData.name
             binding.hex.text = colorPickerData.colorHexName
-            binding.progressBar.progress = ((colorPickerData.risk.toFloat() / MAX_RISK.toFloat()) * 100).toInt()
+            binding.tradeValue.text = getString(R.string.index, colorPickerData.tradesToday)
+            var animationTime = 0f
+
+            lifecycleScope.launch {
+
+                val max = (colorPickerData.risk.toFloat() / MAX_RISK.toFloat()) * 100
+                val halfMark = max / 2
+
+                while (animationTime <= max) {
+                    delay(2L)
+                    binding.progressBar.progress = animationTime.toInt()
+                    val float = animationTime / max
+                    animationTime += if (animationTime <= halfMark) {
+                        float + 0.1f
+                    } else {
+                        abs(1 - float)+ 0.1f
+                    }
+                }
+            }
             binding.progressText.text = requireContext().getString(R.string.risk, colorPickerData.risk, MAX_RISK)
+            binding.tradesToday.text = requireContext().getString(R.string.trades_today, colorPickerData.tradesToday)
             binding.cardDetailsView.setCardBackgroundColor(colorPickerData.color)
 
         }

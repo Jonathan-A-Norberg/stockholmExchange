@@ -22,11 +22,6 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="TextAppearance.SCE.Body.White" parent="TextAppearance.SCE.Body.Bold">
-        <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">@dimen/text_small</item>
-    </style>
-
     <style name="TextAppearance.SCE.Body.Bold" parent="TextAppearance.SCE.Body">
         <item name="android:textStyle">bold</item>
     </style>
