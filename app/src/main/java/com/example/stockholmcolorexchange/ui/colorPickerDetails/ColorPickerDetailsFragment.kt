@@ -63,6 +63,7 @@ class ColorPickerDetailsFragment : Fragment(R.layout.fragment_color_details) {
                         abs(1 - float)+ 0.1f
                     }
                 }
+                binding.progressBar.progress = max.toInt()
             }
             binding.progressText.text = requireContext().getString(R.string.risk, colorPickerData.risk, MAX_RISK)
             binding.tradesToday.text = requireContext().getString(R.string.trades_today, colorPickerData.tradesToday)

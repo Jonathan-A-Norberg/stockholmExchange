@@ -23,18 +23,13 @@ dependencies {
     kapt libraries.daggerHiltCompiler
     kapt libraries.daggerHiltAndroidXCompiler
     api libraries.daggerHiltAndroid
-
-
     api libraries.okhttp
-
     api libraries.retrofit
     api libraries.retrofit_converter_scalars
     api libraries.kotlin_serialization
     implementation libraries.retrofit_kotlin_serialization
     implementation libraries.okhttp_logging_interceptor
 
-    implementation "androidx.work:work-runtime-ktx:2.3.3"
-    implementation "com.squareup.okio:okio:2.4.3"
 
 
 }
