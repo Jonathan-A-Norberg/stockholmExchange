@@ -16,8 +16,10 @@ data class PokemonDataItem(
     val image: String?,
     val stats: List<PokemonDataItemStats>,
     val types: List<String>,
+    val height: String,
     val weight: String,
 ) : Parcelable
+
 @Parcelize
 data class PokemonDataItemStats(
     val name: String,

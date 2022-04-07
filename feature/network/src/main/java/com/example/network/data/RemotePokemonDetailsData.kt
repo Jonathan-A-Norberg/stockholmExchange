@@ -10,6 +10,7 @@ data class RemotePokemonDetailsData(
     val sprites: RemotePokemonDetailsSprites,
     val stats: List<RemotePokemonDetailsStats>,
     val types: List<RemotePokemonDetailsTypes>,
+    val height: Int,
     val weight: Int,
 )
 

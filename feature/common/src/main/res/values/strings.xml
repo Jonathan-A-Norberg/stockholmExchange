@@ -12,8 +12,7 @@
     <string name="error_database">Could not find resource in database.</string>
     <string name="error_offline">Device Offline</string>
 
-    <string name="risk">Risk %d / %d</string>
-    <string name="trades_today">Number of trades: %d</string>
-    <string name="price">Price: %d</string>
     <string name="try_again">Try again</string>
+    <string name="weight">Weight: %s kg</string>
+    <string name="height">Height: %s m</string>
 </resources>

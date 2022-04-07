@@ -6,7 +6,6 @@ import com.example.network.data.RemotePokemonListItemData
 import com.example.repository.data.PokemonData
 import com.example.repository.data.PokemonDataItem
 import com.example.repository.data.PokemonDataItemStats
-import timber.log.Timber
 
 
 fun RemotePokemonListData.toPokemonData(detailsData: List<RemotePokemonDetailsData>): PokemonData {
@@ -19,13 +18,6 @@ fun RemotePokemonListData.toPokemonData(detailsData: List<RemotePokemonDetailsDa
             } else {
                 pokemon.toPokemonDataItem(detailsData = firstDetailsData)
             }
-        }.also {
-            it.forEach {
-                if (it.image == null) {
-                    Timber.e(it.id + " " + it.name)
-                }
-
-            }
         }
     )
 }
@@ -33,18 +25,19 @@ fun RemotePokemonListData.toPokemonData(detailsData: List<RemotePokemonDetailsDa
 fun RemotePokemonListItemData.toPokemonDataItem(detailsData: RemotePokemonDetailsData): PokemonDataItem {
     return PokemonDataItem(
         id = detailsData.id.toString(),
-        name = name,
+        name = name.replaceFirstChar { it.uppercaseChar() },
         image = detailsData.sprites.other.dream_world.front_default
             ?: detailsData.sprites.other.home.front_default ?: detailsData.sprites.front_default
             ?: detailsData.sprites.front_shiny ?: detailsData.sprites.other.artwork.front_default,
         stats = detailsData.stats.map {
             PokemonDataItemStats(
-                name = it.stat.name,
+                name = it.stat.name.replaceFirstChar { it.uppercaseChar() },
                 stat = it.base_stat
             )
         },
-        types = detailsData.types.map { it.type.name },
-        weight = detailsData.weight.toString()
+        types = detailsData.types.map { it.type.name.replaceFirstChar { it.uppercaseChar() } },
+        height = (detailsData.height.toFloat() / 10 ).toString(),
+        weight = (detailsData.weight.toFloat() / 10 ).toString()
     )
 }
 

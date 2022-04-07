@@ -1,5 +1,6 @@
 package com.example.testproject.ui.pokemonList.ui
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +48,8 @@ import com.example.common.utils.getErrorMessageRes
 import com.example.repository.data.PokemonDataItem
 import com.example.testproject.R
 import com.example.testproject.ui.pokemonList.PokemonListViewModel
+import com.google.gson.Gson
+import timber.log.Timber
 
 @Composable
 fun PokemonListScreen(
@@ -54,6 +60,12 @@ fun PokemonListScreen(
     val viewState by viewModel.state.collectAsState()
 
 
+    var pokemonDataItem: PokemonDataItem? by remember { mutableStateOf(null) }
+    if (pokemonDataItem != null) {
+        val json = Uri.encode(Gson().toJson(pokemonDataItem))
+        navController.navigate("details/$json")
+        pokemonDataItem = null
+    }
     when {
         viewState.loading -> LoadingScreen()
         viewState.error != null -> ErrorScreen(
@@ -63,7 +75,7 @@ fun PokemonListScreen(
             PokemonList(
                 list = viewState.pokemonList,
                 loadingPaging = viewState.loadingPaging,
-                onPokemonClicked = { viewModel.onPokemonClicked(name = it) },
+                onPokemonClicked = { pokemonDataItem = it },
                 onScrolledToBottom = { viewModel.onScrolledToBottom() })
 
         }
@@ -121,7 +133,7 @@ private fun ErrorScreen(
 private fun PokemonList(
     list: List<PokemonDataItem>,
     loadingPaging: Boolean,
-    onPokemonClicked: (String) -> Unit,
+    onPokemonClicked: (PokemonDataItem) -> Unit,
     onScrolledToBottom: () -> Unit
 ) {
 
@@ -151,7 +163,7 @@ private fun PokemonList(
                         .clip(RoundedCornerShape(8.dp))
                         .background(color = MaterialTheme.colors.onBackground)
                         .clickable {
-                            onPokemonClicked(pokemon.name)
+                            onPokemonClicked(pokemon)
                         },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -164,7 +176,7 @@ private fun PokemonList(
                     )
                     Text(
                         modifier = Modifier.padding(start = 4.dp),
-                        text = pokemon.name.capitalize(Locale.current),
+                        text = pokemon.name,
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onSurface
                     )

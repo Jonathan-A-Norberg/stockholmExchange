@@ -65,10 +65,6 @@ class PokemonListViewModel @Inject constructor(
         getPokemonDataList()
     }
 
-    fun onPokemonClicked(name: String) {
-
-    }
-
     fun onScrolledToBottom() {
         if (!state.value.loadingPaging && !state.value.loading) {
             if (state.value.pokemonList.isNotEmpty() && state.value.nextUrl != null) {

@@ -37,8 +37,8 @@ class PokemonApiService(retrofit: Retrofit) {
         return wrapApiCallToResource {
             if (next == null) {
                 api.getPokemonList(
-                    offset = 1000,
-                    limit = 500
+                    offset = 0,
+                    limit = 25
                 )
 
             } else {
