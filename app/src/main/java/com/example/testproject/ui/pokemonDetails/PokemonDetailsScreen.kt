@@ -198,7 +198,7 @@ private fun PokemonTypesItemView(type: String) {
         modifier = Modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(Color.White)
+            .background(MaterialTheme.colors.onSurface)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         text = type,
         style = MaterialTheme.typography.body1,
