@@ -1,4 +1,4 @@
-package com.example.testproject.ui.pokemonList.ui.theme
+package com.example.testproject.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

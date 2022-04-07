@@ -26,19 +26,28 @@ class PokemonListViewModel @Inject constructor(
 
     private fun getPokemonDataList() {
         viewModelScope.launch {
-            when (val res = pokemonRepository.getPokemonList()) {
+            if (state.value.nextUrl != null) {
+                _state.emit(state.value.copy(loadingPaging = true))
+            } else {
+                _state.emit(state.value.copy(loading = true))
+            }
+
+
+            when (val res = pokemonRepository.getPokemonList(next = state.value.nextUrl)) {
                 is Resource.Success -> {
                     _state.emit(
                         state.value.copy(
                             loading = false,
+                            loadingPaging = false,
                             nextUrl = res.data.url,
-                            pokemonList = res.data.list
+                            pokemonList = state.value.pokemonList + res.data.list
                         )
                     )
                 }
                 is Resource.Error -> _state.emit(
                     state.value.copy(
                         loading = false,
+                        loadingPaging = false,
                         error = res.error
                     )
                 )
@@ -46,7 +55,7 @@ class PokemonListViewModel @Inject constructor(
         }
     }
 
-    fun tryAgainClicked() {
+    fun onTryAgainClicked() {
         _state.tryEmit(
             state.value.copy(
                 loading = true,
@@ -55,12 +64,26 @@ class PokemonListViewModel @Inject constructor(
         )
         getPokemonDataList()
     }
+
+    fun onPokemonClicked(name: String) {
+
+    }
+
+    fun onScrolledToBottom() {
+        if (!state.value.loadingPaging && !state.value.loading) {
+            if (state.value.pokemonList.isNotEmpty() && state.value.nextUrl != null) {
+                getPokemonDataList()
+            }
+
+        }
+    }
 }
 
 data class PokemonState(
     val pokemonList: List<PokemonDataItem> = emptyList(),
     val nextUrl: String? = null,
     val error: Error? = null,
-    val loading: Boolean = true
+    val loading: Boolean = true,
+    val loadingPaging: Boolean = false
 )
 

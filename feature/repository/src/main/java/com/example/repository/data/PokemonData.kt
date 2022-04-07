@@ -5,12 +5,21 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PokemonData(
-    val url: String,
+    val url: String?,
     val list: List<PokemonDataItem>,
 ) : Parcelable
 
 @Parcelize
 data class PokemonDataItem(
+    val id: String,
     val name: String,
-    val url: String,
+    val image: String?,
+    val stats: List<PokemonDataItemStats>,
+    val types: List<String>,
+    val weight: String,
+) : Parcelable
+@Parcelize
+data class PokemonDataItemStats(
+    val name: String,
+    val stat: Int,
 ) : Parcelable

@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.testproject.ui.pokemonList.ui.PokemonListScreen
-import com.example.testproject.ui.pokemonList.ui.theme.PokemonTheme
+import com.example.testproject.ui.theme.PokemonTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
