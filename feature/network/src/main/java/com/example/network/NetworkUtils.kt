@@ -1,7 +1,7 @@
 package com.example.network
 
-import com.example.network.utils.Resource
-import com.example.network.utils.Error.Api
+import com.example.common.utils.Resource
+import com.example.common.utils.Error.Api
 import org.json.JSONException
 import retrofit2.HttpException
 import timber.log.Timber

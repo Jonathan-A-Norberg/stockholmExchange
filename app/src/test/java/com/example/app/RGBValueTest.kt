@@ -1,7 +1,7 @@
 package com.example.app
 
-import com.example.network.utils.RGBValue
-import com.example.network.utils.calcRGBDistance
+import com.example.common.utils.RGBValue
+import com.example.common.utils.calcRGBDistance
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
@@ -16,9 +16,7 @@ class RGBValueTest {
             val filter = listOf.filterNot { rgbValue == it }
             assert(calcRGBDistance(rgbValue, filter) >= 0)
             assertEquals(0.0, calcRGBDistance(rgbValue, filter))
-
         }
-
     }
 
     @Test

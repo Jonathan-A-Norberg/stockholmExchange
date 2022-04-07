@@ -7,12 +7,6 @@ repositories {
 }
 android {
 
-    buildTypes {
-        debug {
-            buildConfigField "String", "BASE_URL", "\"https://storage.googleapis.com/sebx-interview/\""
-        }
-
-    }
 
 
 }

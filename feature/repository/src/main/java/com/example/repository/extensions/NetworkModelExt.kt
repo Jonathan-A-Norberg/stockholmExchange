@@ -1,18 +1,22 @@
 package com.example.repository.extensions
 
-import android.graphics.Color
-import com.example.network.data.RemoteColorPickerData
-import com.example.repository.data.ColorPickerData
-import timber.log.Timber
+import com.example.network.data.RemotePokemonData
+import com.example.network.data.RemotePokemonDataItem
+import com.example.repository.data.PokemonData
+import com.example.repository.data.PokemonDataItem
 
 
-fun RemoteColorPickerData.toColorPickerData(): ColorPickerData {
-    return ColorPickerData(
-        name = name,
-        color = Color.parseColor(color),
-        colorHexName = color,
-        numTrades = numTrades.toInt(),
-        risk = risk.toInt()
+fun RemotePokemonData.toPokemonData(): PokemonData {
+    return PokemonData(
+        url = next,
+        list = results.map { it.toPokemonDataItem() }
+    )
+}
+
+fun RemotePokemonDataItem.toPokemonDataItem(): PokemonDataItem {
+    return PokemonDataItem(
+        url = url,
+        name = name
     )
 }
 

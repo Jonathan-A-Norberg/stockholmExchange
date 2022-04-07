@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stockholm Color Office</string>
+    <string name="app_name">Pokémon list</string>
     <string name="error_failed_to_parse">Failed to Parse Resource</string>
     <string name="error_network_time_out">Network Timeout</string>
     <string name="error_network_interrupted">Network Interrupted</string>
@@ -14,6 +14,6 @@
 
     <string name="risk">Risk %d / %d</string>
     <string name="trades_today">Number of trades: %d</string>
-    <string name="index">Index: %d</string>
+    <string name="price">Price: %d</string>
     <string name="try_again">Try again</string>
 </resources>

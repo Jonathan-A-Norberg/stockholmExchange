@@ -3,4 +3,4 @@ include ':feature:network'
 include ':feature:repository'
 include ':feature'
 include ':app'
-rootProject.name = "Stockholm Color Exchange"
+rootProject.name = "test_project"
