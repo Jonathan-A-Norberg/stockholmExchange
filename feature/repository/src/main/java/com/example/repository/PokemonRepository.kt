@@ -2,17 +2,13 @@ package com.example.repository
 
 import com.example.common.utils.Resource
 import com.example.network.PokemonApiService
-import com.example.network.data.RemotePokemonDetailsData
 import com.example.repository.data.PokemonData
 import com.example.repository.data.PokemonDataItem
 import com.example.repository.data.PokemonDetailsData
 import com.example.repository.extensions.toPokemonData
 import com.example.repository.extensions.toPokemonDataItem
 import com.example.repository.extensions.toPokemonDetailsData
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import timber.log.Timber
 import javax.inject.Inject
 
 class PokemonRepository @Inject constructor(

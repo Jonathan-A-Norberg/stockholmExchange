@@ -40,7 +40,6 @@ import com.example.repository.data.PokemonDataItem
 import com.example.testproject.ui.pokemonList.PokemonListViewModel
 import com.example.testproject.ui.views.ErrorScreen
 import com.example.testproject.ui.views.LoadingScreen
-import timber.log.Timber
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
