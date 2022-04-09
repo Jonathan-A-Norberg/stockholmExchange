@@ -11,17 +11,9 @@ data class PokemonData(
 
 @Parcelize
 data class PokemonDataItem(
-    val id: String,
+    val id: String?,
     val name: String,
+    val url: String,
     val image: String?,
-    val stats: List<PokemonDataItemStats>,
-    val types: List<String>,
-    val height: String,
-    val weight: String,
 ) : Parcelable
 
-@Parcelize
-data class PokemonDataItemStats(
-    val name: String,
-    val stat: Int,
-) : Parcelable

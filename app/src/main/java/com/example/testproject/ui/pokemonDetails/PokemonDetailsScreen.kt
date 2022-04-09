@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,35 +36,47 @@ import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.repository.data.PokemonDataItem
-import com.example.repository.data.PokemonDataItemStats
+import com.example.repository.data.PokemonDetailsData
+import com.example.repository.data.PokemonStats
 import com.example.testproject.R
+import com.example.testproject.ui.views.ErrorScreen
+import com.example.testproject.ui.views.LoadingScreen
+import timber.log.Timber
 
 @Composable
 fun PokemonDetailsScreen(
     navController: NavHostController,
     viewModel: PokemonDetailsViewModel = hiltViewModel(),
-    pokemon: PokemonDataItem,
 ) {
     val viewState by viewModel.state.collectAsState()
+    val pokemon = viewState.pokemon
+    Timber.e(viewState.toString())
+    when {
+        viewState.loading -> LoadingScreen()
+        viewState.error != null -> ErrorScreen(
+            error = viewState.error!!,
+            onTryAgainClicked = { viewModel.onTryAgainClicked() })
+        else -> {
+            PokemonDetails(pokemon!!)
+        }
+    }
+}
 
-
-
+@Composable
+private fun PokemonDetails(pokemon: PokemonDetailsData) {
     Column(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
         PokemonCardView(pokemon)
-
         PokemonStatsListView(pokemon)
         PokemonDimensionsItemView(pokemon)
     }
-
 }
 
 @Composable
-private fun PokemonCardView(pokemon: PokemonDataItem) {
+private fun PokemonCardView(pokemon: PokemonDetailsData) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,7 +98,7 @@ private fun PokemonCardView(pokemon: PokemonDataItem) {
 }
 
 @Composable
-private fun PokemonStatsListView(pokemon: PokemonDataItem) {
+private fun PokemonStatsListView(pokemon: PokemonDetailsData) {
     CardView() {
         Column {
             for (item in pokemon.stats) {
@@ -113,7 +124,7 @@ private fun CardView(modifier: Modifier = Modifier, content: @Composable () -> U
 }
 
 @Composable
-private fun PokemonName(pokemon: PokemonDataItem) {
+private fun PokemonName(pokemon: PokemonDetailsData) {
     Text(
         text = "${pokemon.id}. ${pokemon.name}",
         style = MaterialTheme.typography.h5,
@@ -122,7 +133,7 @@ private fun PokemonName(pokemon: PokemonDataItem) {
 }
 
 @Composable
-private fun Image(pokemon: PokemonDataItem) {
+private fun Image(pokemon: PokemonDetailsData) {
     val imageLoader = ImageLoader.Builder(LocalContext.current)
         .componentRegistry {
             add(SvgDecoder(LocalContext.current))
@@ -143,7 +154,7 @@ private fun Image(pokemon: PokemonDataItem) {
 }
 
 @Composable
-private fun PokemonTypesView(pokemon: PokemonDataItem) {
+private fun PokemonTypesView(pokemon: PokemonDetailsData) {
     LazyRow() {
         items(pokemon.types) { item ->
             PokemonTypesItemView(item)
@@ -152,7 +163,7 @@ private fun PokemonTypesView(pokemon: PokemonDataItem) {
 }
 
 @Composable
-private fun PokemonStatsItemView(stats: PokemonDataItemStats) {
+private fun PokemonStatsItemView(stats: PokemonStats) {
     val progress = (stats.stat.toFloat() / 255)
     Column(modifier = Modifier.padding(top = 12.dp)) {
         Text(
@@ -171,7 +182,7 @@ private fun PokemonStatsItemView(stats: PokemonDataItemStats) {
 }
 
 @Composable
-private fun PokemonDimensionsItemView(pokemon: PokemonDataItem) {
+private fun PokemonDimensionsItemView(pokemon: PokemonDetailsData) {
     CardView(modifier = Modifier.padding(top = 12.dp)) {
 
         Column(modifier = Modifier.padding(top = 12.dp)) {

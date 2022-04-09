@@ -1,5 +1,6 @@
 package com.example.testproject.ui.pokemonDetails.di
 
+import com.example.repository.PokemonRepository
 import com.example.testproject.ui.pokemonDetails.PokemonDetailsViewModel
 import dagger.Module
 import dagger.Provides
@@ -13,7 +14,7 @@ object PokemonPickerDetailsModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun providePokemonDetailsViewModel(): PokemonDetailsViewModel {
-        return PokemonDetailsViewModel()
+    fun providePokemonDetailsViewModel(pokemonRepository: PokemonRepository): PokemonDetailsViewModel {
+        return PokemonDetailsViewModel(pokemonRepository = pokemonRepository)
     }
 }

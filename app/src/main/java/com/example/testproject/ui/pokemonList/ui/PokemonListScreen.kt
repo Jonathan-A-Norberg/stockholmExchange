@@ -1,18 +1,14 @@
 package com.example.testproject.ui.pokemonList.ui
 
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -33,9 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -43,13 +36,13 @@ import coil.ImageLoader
 import coil.compose.LocalImageLoader
 import coil.compose.rememberImagePainter
 import coil.decode.SvgDecoder
-import com.example.common.utils.Error
-import com.example.common.utils.getErrorMessageRes
 import com.example.repository.data.PokemonDataItem
-import com.example.testproject.R
 import com.example.testproject.ui.pokemonList.PokemonListViewModel
-import com.google.gson.Gson
+import com.example.testproject.ui.views.ErrorScreen
+import com.example.testproject.ui.views.LoadingScreen
 import timber.log.Timber
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun PokemonListScreen(
@@ -62,8 +55,8 @@ fun PokemonListScreen(
 
     var pokemonDataItem: PokemonDataItem? by remember { mutableStateOf(null) }
     if (pokemonDataItem != null) {
-        val json = Uri.encode(Gson().toJson(pokemonDataItem))
-        navController.navigate("details/$json")
+        val encodedUrl = URLEncoder.encode(pokemonDataItem!!.url, StandardCharsets.UTF_8.toString())
+        navController.navigate("details/${encodedUrl}")
         pokemonDataItem = null
     }
     when {
@@ -82,52 +75,8 @@ fun PokemonListScreen(
     }
 }
 
-@Composable
-private fun LoadingScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}
 
-@Composable
-private fun ErrorScreen(
-    error: Error,
-    onTryAgainClicked: () -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(id = error.getErrorMessageRes()),
-            style = MaterialTheme.typography.h5,
-            color = MaterialTheme.colors.onSurface
-        )
-        Row(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth()
-                .requiredHeightIn(min = 44.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(MaterialTheme.colors.primary)
-                .clickable(onClick = onTryAgainClicked),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
 
-            Text(
-                modifier = Modifier.align(Alignment.CenterVertically),
-                text = stringResource(id = R.string.try_again),
-                color = MaterialTheme.colors.onSurface,
-                style = MaterialTheme.typography.h6,
-            )
-        }
-    }
-}
 
 @Composable
 private fun PokemonList(
@@ -168,12 +117,17 @@ private fun PokemonList(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Text(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        text = pokemon.id,
-                        style = MaterialTheme.typography.h5,
-                        color = MaterialTheme.colors.onSurface
-                    )
+                    if (pokemon.id == null) {
+                        CircularProgressIndicator()
+                    } else {
+                        Text(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            text = pokemon.id!!,
+                            style = MaterialTheme.typography.h5,
+                            color = MaterialTheme.colors.onSurface
+                        )
+
+                    }
                     Text(
                         modifier = Modifier.padding(start = 4.dp),
                         text = pokemon.name,

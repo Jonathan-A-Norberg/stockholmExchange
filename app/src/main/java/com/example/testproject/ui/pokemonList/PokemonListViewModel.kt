@@ -43,6 +43,7 @@ class PokemonListViewModel @Inject constructor(
                             pokemonList = state.value.pokemonList + res.data.list
                         )
                     )
+                    getPokemonDetailsList(res.data.list)
                 }
                 is Resource.Error -> _state.emit(
                     state.value.copy(
@@ -51,6 +52,23 @@ class PokemonListViewModel @Inject constructor(
                         error = res.error
                     )
                 )
+            }
+        }
+    }
+
+    private fun getPokemonDetailsList(list: List<PokemonDataItem>) {
+        list.forEach { pokemon ->
+            viewModelScope.launch {
+                when(val res = pokemonRepository.getPokemonListDetails(pokemon.url)){
+                    is Resource.Error -> {}
+                    is Resource.Success -> {
+                        val pokemonList = _state.value.pokemonList.toMutableList()
+                        pokemonList[pokemonList.indexOf(pokemon)] = res.data
+                        _state.emit(_state.value.copy(
+                            pokemonList = pokemonList.toList()
+                        ))
+                    }
+                }
             }
         }
     }

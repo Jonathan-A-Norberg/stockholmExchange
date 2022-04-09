@@ -4,7 +4,11 @@ import com.example.common.utils.Resource
 import com.example.network.PokemonApiService
 import com.example.network.data.RemotePokemonDetailsData
 import com.example.repository.data.PokemonData
+import com.example.repository.data.PokemonDataItem
+import com.example.repository.data.PokemonDetailsData
 import com.example.repository.extensions.toPokemonData
+import com.example.repository.extensions.toPokemonDataItem
+import com.example.repository.extensions.toPokemonDetailsData
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -18,22 +22,27 @@ class PokemonRepository @Inject constructor(
         return@coroutineScope when (val res = apiService.getPokemonList(next = next)) {
             is Resource.Error -> Resource.Error(res.error)
             is Resource.Success -> {
+                Resource.Success(res.data.toPokemonData())
+            }
+        }
+    }
 
-                val result = res.data.results.map { listItem ->
-                    async {
-                        return@async apiService.getPokemonDetails(url = listItem.url)
-                    }
-                }
-                    .awaitAll()
-                    .map {
-                       return@map when(it){
-                            is Resource.Error -> null
-                            is Resource.Success -> it.data
-                        }
-                    }
+    suspend fun getPokemonListDetails(url: String): Resource<PokemonDataItem> = coroutineScope {
+        return@coroutineScope when (val res = apiService.getPokemonDetails(url = url)) {
+            is Resource.Error -> Resource.Error(res.error)
+            is Resource.Success -> {
 
-                val toPokemonData = res.data.toPokemonData(detailsData = result.filterNotNull())
-                Resource.Success(toPokemonData)
+                Resource.Success(res.data.toPokemonDataItem(url = url))
+            }
+        }
+    }
+
+    suspend fun getPokemonDetails(url: String): Resource<PokemonDetailsData> = coroutineScope {
+        return@coroutineScope when (val res = apiService.getPokemonDetails(url = url)) {
+            is Resource.Error -> Resource.Error(res.error)
+            is Resource.Success -> {
+
+                Resource.Success(res.data.toPokemonDetailsData())
             }
         }
     }

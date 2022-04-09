@@ -5,6 +5,8 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.repository.data.PokemonDataItem
 import com.example.testproject.ui.pokemonDetails.PokemonDetailsScreen
+import com.example.testproject.ui.pokemonDetails.PokemonDetailsViewModel
 import com.example.testproject.ui.pokemonList.ui.PokemonListScreen
 import com.example.testproject.ui.theme.PokemonTheme
 import com.google.gson.Gson
@@ -40,21 +43,26 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun NavigationComponent(navController: NavHostController) {
+        val viewModel: PokemonDetailsViewModel = hiltViewModel()
+
         NavHost(
             navController = navController,
             startDestination = "list"
         ) {
+
             composable("list") {
                 PokemonListScreen(navController)
             }
-            composable(route = "details/{pokemon}", arguments = listOf(
-                navArgument("pokemon") {
-                    type = AssetParamType()
+            composable(route = "details/{url}", arguments = listOf(
+                navArgument("url") {
+                    type = NavType.StringType
                 }
-            )) {
-                val pokemonDataItem: PokemonDataItem = it.arguments?.getParcelable("pokemon")!!
-
-                PokemonDetailsScreen(navController, pokemon = pokemonDataItem)
+            )) { entry ->
+                val url: String = entry.arguments?.getString("url")!!
+                LaunchedEffect(url) {
+                    viewModel.insertUrl(url)
+                }
+                PokemonDetailsScreen(navController = navController, viewModel = viewModel)
             }
         }
     }
