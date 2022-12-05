@@ -188,7 +188,7 @@ private fun FlickrList(
                     Text(
                         modifier = Modifier.padding(horizontal = 16.dp),
                         text = flickr.title,
-                        style = MaterialTheme.typography.h5,
+                        style = MaterialTheme.typography.body2,
                         color = MaterialTheme.colors.onSurface
                     )
                 }
