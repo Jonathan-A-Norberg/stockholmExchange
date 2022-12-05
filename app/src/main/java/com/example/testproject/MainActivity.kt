@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.testproject.ui.flickrDetails.FlickrDetailsScreen
+import com.example.testproject.ui.flickrDetails.FlickrDetailsViewModel
 import com.example.testproject.ui.flickrList.ui.FlickrListScreen
 import com.example.testproject.ui.theme.FlickrTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun NavigationComponent(navController: NavHostController) {
+        val viewModel: FlickrDetailsViewModel = hiltViewModel()
 
         NavHost(
             navController = navController,
@@ -54,8 +58,10 @@ class MainActivity : AppCompatActivity() {
             )) { entry ->
                 val url: String = entry.arguments?.getString("url")!!
                 LaunchedEffect(url) {
-                    // viewModel.insertUrl(url)
+                    viewModel.insertUrl(url)
                 }
+                FlickrDetailsScreen(navController = navController, viewModel = viewModel)
+
             }
         }
     }
