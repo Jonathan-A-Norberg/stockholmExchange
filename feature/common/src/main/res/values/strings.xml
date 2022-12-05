@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pokémon list</string>
+    <string name="app_name">Flickr list</string>
     <string name="error_failed_to_parse">Failed to Parse Resource</string>
     <string name="error_network_time_out">Network Timeout</string>
     <string name="error_network_interrupted">Network Interrupted</string>
@@ -15,4 +15,5 @@
     <string name="try_again">Try again</string>
     <string name="weight">Weight: %s kg</string>
     <string name="height">Height: %s m</string>
+    <string name="search_text_hint">Search photos</string>
 </resources>

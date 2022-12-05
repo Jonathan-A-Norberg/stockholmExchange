@@ -24,6 +24,10 @@ dependencies {
     implementation libraries.retrofit_kotlin_serialization
     implementation libraries.okhttp_logging_interceptor
 
-
+    implementation('com.squareup.retrofit2:converter-simplexml:2.9.0') {
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+    }
 
 }

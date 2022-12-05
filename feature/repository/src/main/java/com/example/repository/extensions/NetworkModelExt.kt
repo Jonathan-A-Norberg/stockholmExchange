@@ -1,60 +1,27 @@
 package com.example.repository.extensions
 
-import com.example.network.data.RemotePokemonDetailsData
-import com.example.network.data.RemotePokemonListData
-import com.example.network.data.RemotePokemonListItemData
-import com.example.repository.data.PokemonData
-import com.example.repository.data.PokemonDataItem
-import com.example.repository.data.PokemonDetailsData
-import com.example.repository.data.PokemonStats
+import com.example.network.data.RemotePhoto
+import com.example.network.data.RemotePhotos
+import com.example.repository.data.FlickrData
+import com.example.repository.data.FlickrDataItem
 
-
-fun RemotePokemonListData.toPokemonData(): PokemonData {
-    return PokemonData(
-        url = next,
-        list = results.map { pokemon ->
-            pokemon.toPokemonDataItem()
+fun RemotePhotos.toFlickrData(): FlickrData {
+    return FlickrData(
+        page = page,
+        pages = pages,
+        photoList = photo.map { flickr ->
+            flickr.toFlickrDataItem()
         }
     )
 }
 
-fun RemotePokemonListItemData.toPokemonDataItem(): PokemonDataItem {
-    return PokemonDataItem(
-        id = null,
-        name = name.replaceFirstChar { it.uppercaseChar() },
-        url = url,
-        image = null,
+fun RemotePhoto.toFlickrDataItem(): FlickrDataItem {
+    return FlickrDataItem(
+        title = title,
+        urlMedium = "https://live.staticflickr.com/${server}/${id}_${secret}_w.jpg\n",
+        urlSmall = "https://live.staticflickr.com/${server}/${id}_${secret}_s.jpg\n",
     )
 }
 
-
-fun RemotePokemonDetailsData.toPokemonDataItem(url: String): PokemonDataItem {
-    return PokemonDataItem(
-        id = id.toString(),
-        name = name.replaceFirstChar { it.uppercaseChar() },
-        image = sprites.other.dream_world.front_default
-            ?: sprites.other.home.front_default ?: sprites.front_default
-            ?: sprites.front_shiny ?: sprites.other.artwork.front_default,
-        url = url
-    )
-}
-fun RemotePokemonDetailsData.toPokemonDetailsData(): PokemonDetailsData {
-    return PokemonDetailsData(
-        id = id.toString(),
-        name = name.replaceFirstChar { it.uppercaseChar() },
-        image = sprites.other.dream_world.front_default
-            ?: sprites.other.home.front_default ?: sprites.front_default
-            ?: sprites.front_shiny ?: sprites.other.artwork.front_default,
-        stats = stats.map {
-            PokemonStats(
-                name = it.stat.name.replaceFirstChar { it.uppercaseChar() },
-                stat = it.base_stat
-            )
-        },
-        types = types.map { it.type.name.replaceFirstChar { it.uppercaseChar() } },
-        height = (height.toFloat() / 10).toString(),
-        weight = (weight.toFloat() / 10).toString()
-    )
-}
 
 

@@ -2,10 +2,11 @@
 buildscript {
     ext {
 
-        kotlin_version = '1.4.31'
+
+        kotlin_version = '1.6.10'
     }
 
-    ext.kotlinVersion = '1.4.31'
+    ext.kotlinVersion = '1.6.10'
     repositories {
         google()
         jcenter()
@@ -16,7 +17,7 @@ buildscript {
     dependencies {
 
         classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
@@ -41,8 +42,8 @@ task clean(type: Delete) {
 ext {
     buildTools = '29.0.3'
     minSdk = 28
-    targetSdk = 31
-    compileSdk = 31
+    targetSdk = 32
+    compileSdk = 32
 
     versionCodeNumber = 1
     versionNameString = "0.0.1"

@@ -2,7 +2,7 @@
 <resources>
 
     <style name="TextAppearance.POK.Title" parent="">
-        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:fontFamily">@font/extra_bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:textSize">@dimen/text_large</item>
@@ -32,13 +32,13 @@
     </style>
 
     <style name="TextAppearance.POK.Body.Black.Bold" parent="TextAppearance.POK.Body.Black">
-        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:fontFamily">@font/extra_bold</item>
         <item name="android:textStyle">bold</item>
     </style>
 
 
     <style name="TextAppearance.POK.Subtitle" parent="TextAppearance.POK.Body">
-        <item name="android:fontFamily">@font/bold</item>
+        <item name="android:fontFamily">@font/extra_bold</item>
         <item name="android:textSize">@dimen/text_body</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
