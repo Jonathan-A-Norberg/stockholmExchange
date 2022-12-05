@@ -19,24 +19,20 @@ import com.example.testproject.ui.flickrList.ui.FlickrListScreen
 import com.example.testproject.ui.theme.FlickrTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         setContent {
             val navController = rememberNavController()
-
             FlickrTheme {
                 Scaffold {
                     NavigationComponent(navController)
                 }
             }
         }
-
     }
 
     @Composable
@@ -61,7 +57,6 @@ class MainActivity : AppCompatActivity() {
                     viewModel.insertUrl(url)
                 }
                 FlickrDetailsScreen(navController = navController, viewModel = viewModel)
-
             }
         }
     }

@@ -37,6 +37,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -49,6 +50,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.repository.data.FlickrDataItem
 import com.example.testproject.R
 import com.example.testproject.ui.flickrList.FlickrListViewModel
+import com.example.testproject.ui.flickrList.FlickrViewState
 import com.example.testproject.ui.views.ErrorScreen
 import com.example.testproject.ui.views.LoadingScreen
 import java.net.URLEncoder
@@ -66,65 +68,14 @@ fun FlickrListScreen(
 
     var flickrDataItem: FlickrDataItem? by remember { mutableStateOf(null) }
     if (flickrDataItem != null) {
-        val encodedUrl =
-            URLEncoder.encode(flickrDataItem!!.urlMedium, StandardCharsets.UTF_8.toString())
+        val encodedUrl = URLEncoder.encode(flickrDataItem!!.urlMedium, StandardCharsets.UTF_8.toString())
         navController.navigate("details/${encodedUrl}")
         flickrDataItem = null
     }
-    val keyboardController = LocalSoftwareKeyboardController.current
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = null,
-                tint = MaterialTheme.colors.primary,
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 16.dp),
-            ) {
-
-                BasicTextField(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .focusRequester(FocusRequester.Default)
-                        .onFocusChanged {
-                            if (it.isFocused) {
-                                keyboardController?.show()
-                            } else {
-                                keyboardController?.hide()
-                            }
-                        },
-                    value = viewState.searchText,
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.h6.copy(color = MaterialTheme.colors.onSurface),
-                    cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
-                    onValueChange = {
-                        viewModel.onSearchTextUpdated(it)
-                    },
-                )
-                if (viewState.searchText.isEmpty()) {
-                    Text(
-                        text = stringResource(id = R.string.search_text_hint),
-                        color = MaterialTheme.colors.primary,
-                        style = MaterialTheme.typography.h6,
-                        maxLines = 1,
-                    )
-                }
-            }
-        }
-
+        SearchInputField(searchText = viewState.searchText,onSearchTextUpdated = viewModel::onSearchTextUpdated)
         when {
             viewState.isLoading -> LoadingScreen()
             viewState.error != null -> ErrorScreen(
@@ -141,6 +92,64 @@ fun FlickrListScreen(
         }
     }
 
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+private fun SearchInputField(
+    searchText: String,
+    onSearchTextUpdated: (String) -> Unit
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(64.dp)
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(id = R.drawable.ic_search),
+            contentDescription = null,
+            tint = MaterialTheme.colors.primary,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 16.dp),
+        ) {
+
+            BasicTextField(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .focusRequester(FocusRequester.Default)
+                    .onFocusChanged {
+                        if (it.isFocused) {
+                            keyboardController?.show()
+                        } else {
+                            keyboardController?.hide()
+                        }
+                    },
+                value = searchText,
+                singleLine = true,
+                textStyle = MaterialTheme.typography.h6.copy(color = MaterialTheme.colors.onSurface),
+                cursorBrush = SolidColor(MaterialTheme.colors.onSurface),
+                onValueChange = {
+                    onSearchTextUpdated(it)
+                },
+            )
+            if (searchText.isEmpty()) {
+                Text(
+                    text = stringResource(id = R.string.search_text_hint),
+                    color = MaterialTheme.colors.primary,
+                    style = MaterialTheme.typography.h6,
+                    maxLines = 1,
+                )
+            }
+        }
+    }
 }
 
 @Composable

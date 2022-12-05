@@ -22,7 +22,6 @@ import com.example.common.utils.Error
 import com.example.common.utils.getErrorMessageRes
 import com.example.testproject.R
 
-
 @Composable
 fun ErrorScreen(
     error: Error,

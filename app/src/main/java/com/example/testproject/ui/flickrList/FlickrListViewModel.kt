@@ -21,10 +21,10 @@ class FlickrListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _flickrData = MutableStateFlow<FlickrData?>(null)
-    private val _isLoading = MutableStateFlow<Boolean>(true)
-    private val _isLoadingPaging = MutableStateFlow<Boolean>(false)
+    private val _isLoading = MutableStateFlow(true)
+    private val _isLoadingPaging = MutableStateFlow(false)
     private val _error = MutableStateFlow<Error?>(null)
-    private val _searchText = MutableStateFlow<String>("")
+    private val _searchText = MutableStateFlow("")
 
     val viewStateFlow: StateFlow<FlickrViewState> = combine(
         _flickrData,

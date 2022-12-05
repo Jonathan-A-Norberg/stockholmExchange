@@ -12,7 +12,6 @@ class MainApplication : Application(){
         super.onCreate()
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
-
         }
     }
 }

@@ -17,6 +17,4 @@ object FlickrRepositoryModule {
     fun provideFlickrRepository(apiService: FlickrApiService): FlickrRepository {
         return FlickrRepository(apiService)
     }
-
-
 }

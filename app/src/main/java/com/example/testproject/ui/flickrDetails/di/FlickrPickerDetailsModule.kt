@@ -1,6 +1,5 @@
 package com.example.testproject.ui.flickrDetails.di
 
-import com.example.repository.FlickrRepository
 import com.example.testproject.ui.flickrDetails.FlickrDetailsViewModel
 import dagger.Module
 import dagger.Provides
@@ -14,7 +13,7 @@ object FlickrPickerDetailsModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun provideFlickrDetailsViewModel(flickrRepository: FlickrRepository): FlickrDetailsViewModel {
-        return FlickrDetailsViewModel(flickrRepository = flickrRepository)
+    fun provideFlickrDetailsViewModel(): FlickrDetailsViewModel {
+        return FlickrDetailsViewModel()
     }
 }

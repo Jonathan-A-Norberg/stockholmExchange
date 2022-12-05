@@ -7,9 +7,8 @@ import com.example.repository.extensions.toFlickrData
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
-class FlickrRepository @Inject constructor(
-    private val apiService: FlickrApiService
-) {
+class FlickrRepository @Inject constructor(private val apiService: FlickrApiService) {
+
     suspend fun getFlickrList(searchText: String?, page: Int?): Resource<FlickrData> = coroutineScope {
         return@coroutineScope when (val res =
             apiService.getFlickrListFromSearch(searchText = searchText, page = page)) {
@@ -19,6 +18,7 @@ class FlickrRepository @Inject constructor(
             }
         }
     }
+
     suspend fun getFlickrListRecent(page: Int?): Resource<FlickrData> = coroutineScope {
         return@coroutineScope when (val res =
             apiService.getFlickrListFromLatest(page = page)) {
